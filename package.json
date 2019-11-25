@@ -1,0 +1,19 @@
+{
+  "name": "ftpup",
+  "version": "0.1.0",
+  "description": "Simple FTP uploader.",
+  "author": "lemmon",
+  "license": "MIT",
+  "bin": {
+    "ftpup": "cli.js"
+  },
+  "dependencies": {
+    "ftp": "^0.3.10",
+    "glob": "^7.1.6",
+    "meow": "^5.0.0"
+  },
+  "scripts": {
+    "version": "git add -A",
+    "postversion": "git push && git push --tags && npm publish"
+  }
+}

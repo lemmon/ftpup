@@ -11,6 +11,11 @@ const cli = meow(`
     -u, --username username
     -p, --password password
     -i, --ignore   ignore pattern
+
+  Example
+    $ ftpup user@example.com
+    $ ftpup public user@example.com/subfolder
+    $ ftpup -i node_modules projectfolder user@example.com -p topsecret
 `, {
   flags: {
     username: {

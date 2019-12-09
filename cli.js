@@ -11,6 +11,7 @@ const cli = meow(`
     -u, --username username
     -p, --password password
     -i, --ignore   ignore pattern
+    -h, --help     show this help
 
   Example
     $ ftpup user@example.com

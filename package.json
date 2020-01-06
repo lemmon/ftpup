@@ -10,7 +10,7 @@
   "dependencies": {
     "ftp": "^0.3.10",
     "glob": "^7.1.6",
-    "meow": "^5.0.0"
+    "meow": "^6.0.0"
   },
   "scripts": {
     "version": "git add -A",

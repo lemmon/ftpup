@@ -5,13 +5,17 @@ const ftp = require('./src/ftp')
 
 module.exports = async (opts) => {
   try {
-    await ftp.connect({
-      host: opts.host,
-      username: opts.username,
-      password: opts.password,
-      directory: opts.remoteDir,
-    })
-    console.log('connected')
+    if (!opts.test) {
+      await ftp.connect({
+        host: opts.host,
+        username: opts.username,
+        password: opts.password,
+        directory: opts.remoteDir,
+      })
+      console.log('> connected')
+    } else {
+      console.log('> TEST MODE')
+    }
     const dir = path.join(process.cwd(), opts.localDir || '.')
     const files = await glob({
       cwd: dir,
@@ -21,17 +25,16 @@ module.exports = async (opts) => {
       const ff = path.join(dir, f)
       const st = fs.lstatSync(ff)
       if (st.isFile()) {
-        console.log('F', f)
-        await ftp.upload(ff, f)
+        console.log('+', f)
+        if (!opts.test) await ftp.upload(ff, f)
       } else if (st.isDirectory()) {
-        console.log('D', f)
-        await ftp.mkdir(f)
+        if (!opts.test) await ftp.mkdir(f)
       }
     }
-    await ftp.close()
+    if (!opts.test) await ftp.close()
     console.log('done')
   } catch (err) {
-    await ftp.close()
+    if (!opts.test) await ftp.close()
     throw err
   }
 }

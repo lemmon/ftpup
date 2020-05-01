@@ -10,6 +10,7 @@ const cli = meow(`
     -u, --username username
     -p, --password password
     -i, --ignore   ignore pattern
+        --test     perform a trial run with no changes made
     -h, --help     show this help
 
   Example
@@ -30,10 +31,15 @@ const cli = meow(`
       type: 'string',
       alias: 'i',
     },
+    test: {
+      type: 'boolean',
+    },
   },
 })
 
-const opts = {}
+const opts = {
+  test: cli.flags.test,
+}
 
 if (cli.input.length == 2) {
   Object.assign(opts, {

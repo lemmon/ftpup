@@ -7,11 +7,11 @@ const cli = meow(`
     $ ftpup [OPTION]... [SRC] [USERNAME[:PASSWORD]@]HOST[:DEST]
 
   Options
-    -u, --username username
-    -p, --password password
-    -i, --ignore   ignore pattern
-        --test     perform a trial run with no changes made
-    -h, --help     show this help
+    -u, --username=USERNAME username
+    -p, --password=PASSWORD password
+    -i, --ignore=PATTERN    ignore pattern
+        --test              perform a trial run with no changes made
+    -h, --help              show this help
 
   Example
     $ ftpup user@example.com

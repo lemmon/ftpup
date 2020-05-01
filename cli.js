@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 const meow = require('meow')
 const ftpup = require('./')
 
@@ -21,15 +20,15 @@ const cli = meow(`
   flags: {
     username: {
       type: 'string',
-      alias: 'u'
+      alias: 'u',
     },
     password: {
       type: 'string',
-      alias: 'p'
+      alias: 'p',
     },
     ignore: {
       type: 'string',
-      alias: 'i'
+      alias: 'i',
     },
   },
 })
@@ -47,6 +46,14 @@ if (cli.input.length == 2) {
   process.exit(0)
 }
 
+if (cli.flags.username) opts.username = cli.flags.username
+if (cli.flags.password) opts.password = cli.flags.password
+if (cli.flags.ignore) opts.ignore = cli.flags.ignore
+
+ftpup(opts).catch(err => {
+  console.log('!', err.message)
+})
+
 function parseUri(uri) {
   const m = uri.match(/((([^@:]+)(:([^@]+))?)@)?([\w\.]+)(\/(\S+))?/)
   return {
@@ -56,11 +63,3 @@ function parseUri(uri) {
     remoteDir: m[8],
   }
 }
-
-if (cli.flags.username) opts.username = cli.flags.username
-if (cli.flags.password) opts.password = cli.flags.password
-if (cli.flags.ignore) opts.ignore = cli.flags.ignore
-
-ftpup(opts).catch(err => {
-  console.log('!', err.message)
-})

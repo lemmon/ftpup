@@ -1,4 +1,3 @@
-const path = require('path')
 const Ftp = require('ftp')
 const ftp = new Ftp()
 
@@ -38,9 +37,27 @@ module.exports.list = (dir) => (
   })
 )
 
+module.exports.rm = (dir) => (
+  new Promise((resolve, reject) => {
+    ftp.delete(dir, (err) => {
+      if (err) return reject(err)
+      resolve()
+    })
+  })
+)
+
 module.exports.mkdir = (dir) => (
   new Promise((resolve, reject) => {
     ftp.mkdir(dir, true, (err) => {
+      if (err) return reject(err)
+      resolve()
+    })
+  })
+)
+
+module.exports.rmdir = (dir) => (
+  new Promise((resolve, reject) => {
+    ftp.rmdir(dir, true, (err) => {
       if (err) return reject(err)
       resolve()
     })

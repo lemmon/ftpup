@@ -10,6 +10,7 @@ const cli = meow(`
     -u, --username=USERNAME username
     -p, --password=PASSWORD password
     -i, --ignore=PATTERN    ignore pattern
+        --purge=PATH        purge directory
         --test              perform a trial run with no changes made
     -h, --help              show this help
 
@@ -31,6 +32,9 @@ const cli = meow(`
       type: 'string',
       alias: 'i',
     },
+    purge: {
+      type: 'string',
+    },
     test: {
       type: 'boolean',
     },
@@ -39,6 +43,7 @@ const cli = meow(`
 
 const opts = {
   test: cli.flags.test,
+  purge: Array.isArray(cli.flags.purge) && cli.flags.purge || [cli.flags.purge],
 }
 
 if (cli.input.length == 2) {

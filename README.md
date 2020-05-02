@@ -17,15 +17,17 @@ Usage
   $ ftpup [OPTION]... [SRC] [USERNAME[:PASSWORD]@]HOST[:DEST]
 
 Options
-  -u, --username username
-  -p, --password password
-  -i, --ignore   ignore pattern
-  -h, --help     show this help
+  -u, --username=USERNAME username
+  -p, --password=PASSWORD password
+  -i, --ignore=PATTERN    ignore pattern
+      --purge=PATH        purge directory
+      --test              perform a trial run with no changes made
+  -h, --help              show this help
 
 Example
   $ ftpup user@example.com
   $ ftpup public user@example.com/subfolder
-  $ ftpup -i node_modules projectfolder user@example.com -p topsecret
+  $ ftpup --ignore node_modules projectfolder user@example.com -p topsecret
 ```
 
 ## License

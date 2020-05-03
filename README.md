@@ -2,6 +2,8 @@
 
 Simple FTP uploader for node.js.
 
+[![npm version](https://badge.fury.io/js/ftpup.svg)](https://badge.fury.io/js/ftpup)
+
 ## Install
 
 This package is meant to be installed globally.

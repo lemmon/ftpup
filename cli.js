@@ -43,7 +43,7 @@ const cli = meow(`
 
 const opts = {
   test: cli.flags.test,
-  purge: Array.isArray(cli.flags.purge) && cli.flags.purge || [cli.flags.purge],
+  purge: [].concat(cli.flags.purge || []),
 }
 
 if (cli.input.length == 2) {

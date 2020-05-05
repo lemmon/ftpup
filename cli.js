@@ -9,7 +9,7 @@ const cli = meow(`
   Options
     -u, --username=USERNAME username
     -p, --password=PASSWORD password
-    -i, --ignore=PATTERN    ignore pattern
+        --ignore=PATTERN    ignore pattern
         --purge=PATH        purge directory
         --test              perform a trial run with no changes made
     -h, --help              show this help
@@ -29,6 +29,9 @@ const cli = meow(`
       alias: 'p',
     },
     ignore: {
+      type: 'string',
+    },
+    ignoreDepreciated: {
       type: 'string',
       alias: 'i',
     },
@@ -59,7 +62,11 @@ if (cli.input.length == 2) {
 
 if (cli.flags.username) opts.username = cli.flags.username
 if (cli.flags.password) opts.password = cli.flags.password
-if (cli.flags.ignore) opts.ignore = cli.flags.ignore
+if (cli.flags.ignore) opts.ignore = Array.isArray(cli.flags.ignore) ? cli.flags.ignore : [cli.flags.ignore]
+if (cli.flags.ignoreDepreciated) {
+  console.log('🥁', 'WARNING:', 'using flag -i is depreciated, use --ignore instead')
+  opts.ignore = opts.ignore ? opts.ignore.concat(cli.flags.ignoreDepreciated) : cli.flags.ignoreDepreciated
+}
 
 ftpup(opts).catch(err => {
   console.log('!', err.message)

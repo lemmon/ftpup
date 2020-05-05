@@ -1,6 +1,6 @@
 {
   "name": "ftpup",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Simple FTP uploader for node.js.",
   "author": "lemmon",
   "license": "MIT",

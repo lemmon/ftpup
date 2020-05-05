@@ -20,6 +20,7 @@ module.exports = async (opts) => {
     // directories
     const localDir = path.join(process.cwd(), opts.localDir || '.')
     const remoteDir = path.join('/', opts.remoteDir || '.')
+    await client.cd(remoteDir)
     // upload files
     const files = await glob({
       cwd: localDir,

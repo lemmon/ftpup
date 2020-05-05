@@ -7,6 +7,8 @@ const client = new ftp.Client()
 
 module.exports = async (opts) => {
   try {
+    // state
+    const state = {}
     // open connection
     if (opts.test) {
       console.log('> TEST MODE')
@@ -26,18 +28,24 @@ module.exports = async (opts) => {
       cwd: localDir,
       ignore: opts.ignore,
     })
-    for (const f of files) {
-      const ff = path.join(localDir, f)
+    for (const file of files) {
+      const ff = path.join(localDir, file)
       const st = fs.lstatSync(ff)
       if (st.isFile()) {
-        console.log('+', f)
+        console.log('+', file)
         if (!opts.test) {
-          await client.uploadFrom(ff, path.basename(f))
+          const dir = path.dirname(file)
+          if (dir !== state.dir) {
+            await client.cd(path.join(remoteDir, dir))
+            state.dir = dir
+          }
+          await client.uploadFrom(ff, path.basename(file))
         }
       } else if (st.isDirectory()) {
         if (!opts.test) {
           await client.cd(remoteDir)
-          await client.ensureDir(f)
+          await client.ensureDir(file)
+          state.dir = file
         }
       }
     }

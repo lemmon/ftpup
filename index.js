@@ -53,11 +53,12 @@ module.exports = async (opts) => {
     for (const dir of opts.purge) {
       console.log('-', path.join(dir, '*'))
       if (!opts.test) {
-        await client.cd(path.join(remoteDir, dir)).catch(err => {
+        await client.cd(path.join(remoteDir, dir)).then(() => (
+          client.clearWorkingDir()
+        )).catch(err => {
           if (err.code === 550) return
           throw err
         })
-        await client.clearWorkingDir()
       }
     }
     // close connection

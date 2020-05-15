@@ -9,7 +9,7 @@ const cli = meow(`
   Options
     -u, --username=USERNAME username
     -p, --password=PASSWORD password
-        --ignore=PATTERN    ignore pattern
+        --exclude=PATTERN   exclude pattern
         --purge=PATH        purge directory
         --test              perform a trial run with no changes made
     -h, --help              show this help
@@ -30,10 +30,10 @@ const cli = meow(`
     },
     ignore: {
       type: 'string',
-    },
-    ignoreDepreciated: {
-      type: 'string',
       alias: 'i',
+    },
+    exclude: {
+      type: 'string',
     },
     purge: {
       type: 'string',
@@ -62,10 +62,10 @@ if (cli.input.length == 2) {
 
 if (cli.flags.username) opts.username = cli.flags.username
 if (cli.flags.password) opts.password = cli.flags.password
-if (cli.flags.ignore) opts.ignore = Array.isArray(cli.flags.ignore) ? cli.flags.ignore : [cli.flags.ignore]
-if (cli.flags.ignoreDepreciated) {
-  console.log('🥁', 'WARNING:', 'using flag -i is depreciated, use --ignore instead')
-  opts.ignore = opts.ignore ? opts.ignore.concat(cli.flags.ignoreDepreciated) : cli.flags.ignoreDepreciated
+if (cli.flags.exclude) opts.exclude = Array.isArray(cli.flags.exclude) ? cli.flags.exclude : [cli.flags.exclude]
+if (cli.flags.ignore) {
+  console.log('🥁', 'WARNING:', 'using -i and --ignore flag is depreciated, use --exclude instead')
+  opts.exclude = opts.exclude ? opts.exclude.concat(cli.flags.ignore) : cli.flags.ignore
 }
 
 ftpup(opts).catch(err => {

@@ -21,7 +21,7 @@ Usage
 Options
   -u, --username=USERNAME username
   -p, --password=PASSWORD password
-      --ignore=PATTERN    ignore pattern
+      --exclude=PATTERN   exclude pattern
       --purge=PATH        purge directory
       --test              perform a trial run with no changes made
   -h, --help              show this help

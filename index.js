@@ -39,7 +39,7 @@ module.exports = async (opts) => {
     // upload files
     const files = await glob({
       cwd: localDir,
-      ignore: opts.ignore,
+      exclude: opts.exclude,
     })
     for (const file of files) {
       const ff = path.join(localDir, file)

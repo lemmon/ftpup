@@ -29,7 +29,7 @@ Options
 Example
   $ ftpup user@example.com
   $ ftpup public user@example.com/subfolder
-  $ ftpup --ignore node_modules projectfolder user@example.com -p topsecret
+  $ ftpup --exclude node_modules projectfolder user@example.com -p topsecret
 ```
 
 ## License

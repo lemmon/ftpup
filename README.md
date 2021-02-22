@@ -19,12 +19,15 @@ Usage
   $ ftpup [OPTION]... [SRC] [USERNAME[:PASSWORD]@]HOST[:DEST]
 
 Options
-  -u, --username=USERNAME username
-  -p, --password=PASSWORD password
-      --exclude=PATTERN   exclude pattern
-      --purge=PATH        purge directory
-      --test              perform a trial run with no changes made
-  -h, --help              show this help
+  -u, --username=USERNAME  username
+  -p, --password=PASSWORD  password
+      --secure             explicit ftps over tls
+      --allow-unauthorized allow invalid certificates
+      --exclude=PATTERN    exclude pattern
+      --purge=PATH         purge directory
+      --test               perform a trial run with no changes made
+  -v, --version            show version number
+  -h, --help               show this help
 
 Example
   $ ftpup user@example.com

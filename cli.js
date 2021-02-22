@@ -7,13 +7,15 @@ const cli = meow(`
     $ ftpup [OPTION]... [SRC] [USERNAME[:PASSWORD]@]HOST[:DEST]
 
   Options
-    -u, --username=USERNAME username
-    -p, --password=PASSWORD password
-        --exclude=PATTERN   exclude pattern
-        --purge=PATH        purge directory
-        --test              perform a trial run with no changes made
-    -v, --version           show version number
-    -h, --help              show this help
+    -u, --username=USERNAME  username
+    -p, --password=PASSWORD  password
+        --secure             explicit ftps over tls
+        --allow-unauthorized allow invalid certificates
+        --exclude=PATTERN    exclude pattern
+        --purge=PATH         purge directory
+        --test               perform a trial run with no changes made
+    -v, --version            show version number
+    -h, --help               show this help
 
   Example
     $ ftpup user@example.com
@@ -28,6 +30,12 @@ const cli = meow(`
     password: {
       type: 'string',
       alias: 'p',
+    },
+    secure: {
+      type: 'boolean',
+    },
+    allowUnauthorized: {
+      type: 'boolean',
     },
     ignore: {
       type: 'string',
@@ -51,6 +59,8 @@ const cli = meow(`
 
 const opts = {
   test: cli.flags.test,
+  secure: cli.flags.secure,
+  allowUnauthorized: cli.flags.allowUnauthorized,
   purge: [].concat(cli.flags.purge || []),
 }
 

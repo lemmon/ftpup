@@ -20,6 +20,10 @@ module.exports = async (opts) => {
       host: opts.host,
       user: opts.username,
       password: opts.password,
+      secure: opts.secure === true,
+      secureOptions: {
+        rejectUnauthorized: opts.allowUnauthorized !== true,
+      },
     })
     console.log('> connected')
     // directories

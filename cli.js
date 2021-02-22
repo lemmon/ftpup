@@ -12,6 +12,7 @@ const cli = meow(`
         --exclude=PATTERN   exclude pattern
         --purge=PATH        purge directory
         --test              perform a trial run with no changes made
+    -v, --version           show version number
     -h, --help              show this help
 
   Example
@@ -40,6 +41,10 @@ const cli = meow(`
     },
     test: {
       type: 'boolean',
+    },
+    version: {
+      type: 'boolean',
+      alias: 'v',
     },
   },
 })

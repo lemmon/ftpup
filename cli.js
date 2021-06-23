@@ -37,10 +37,6 @@ const cli = meow(`
     allowUnauthorized: {
       type: 'boolean',
     },
-    ignore: {
-      type: 'string',
-      alias: 'i',
-    },
     exclude: {
       type: 'string',
     },
@@ -78,10 +74,6 @@ if (cli.input.length == 2) {
 if (cli.flags.username) opts.username = cli.flags.username
 if (cli.flags.password) opts.password = cli.flags.password
 if (cli.flags.exclude) opts.exclude = Array.isArray(cli.flags.exclude) ? cli.flags.exclude : [cli.flags.exclude]
-if (cli.flags.ignore) {
-  console.log('🥁', 'WARNING:', 'using -i and --ignore flag is depreciated, use --exclude instead')
-  opts.exclude = opts.exclude ? opts.exclude.concat(cli.flags.ignore) : cli.flags.ignore
-}
 
 ftpup(opts).catch(err => {
   console.log('!', err.message)

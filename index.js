@@ -9,6 +9,7 @@ const client = new ftp.Client()
 module.exports = async (opts) => {
   try {
     // state
+    const stateFile = `.ftpup${opts.scope ? `~${opts.scope}` : ''}`
     const state = {
       local: new Map,
     }
@@ -33,7 +34,7 @@ module.exports = async (opts) => {
     try {
       await client.cd(remoteDir)
       const ws = new WS
-      await client.downloadTo(ws, '.ftpup')
+      await client.downloadTo(ws, stateFile)
       state.remote = new Map(ws.getJSON())
       state.toRemove = new Set(state.remote.keys())
     } catch (e) {
@@ -119,7 +120,7 @@ module.exports = async (opts) => {
       const rs = new stream.Readable
       rs.push(JSON.stringify(Array.from(state.local)))
       rs.push(null)
-      await client.uploadFrom(rs, '.ftpup')
+      await client.uploadFrom(rs, stateFile)
     }
     // close connection
     await client.close()

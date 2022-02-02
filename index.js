@@ -31,16 +31,18 @@ module.exports = async (opts) => {
     const localDir = path.join(process.cwd(), opts.localDir || '.')
     const remoteDir = path.join('/', opts.remoteDir || '.')
     // remote state
-    try {
-      await client.cd(remoteDir)
-      const ws = new WS
-      await client.downloadTo(ws, stateFile)
-      state.remote = new Map(ws.getJSON())
-      state.toRemove = new Set(state.remote.keys())
-    } catch (e) {
-      state.remote = new Map()
-      state.toRemove = new Set()
+    if (!opts.fresh) {
+      try {
+        await client.cd(remoteDir)
+        const ws = new WS
+        await client.downloadTo(ws, stateFile)
+        state.remote = new Map(ws.getJSON())
+      } catch (_err) {}
     }
+    if (!state.remote) {
+      state.remote = new Map()
+    }
+    state.toRemove = new Set(state.remote.keys())
     // upload files
     const files = await glob({
       cwd: localDir,

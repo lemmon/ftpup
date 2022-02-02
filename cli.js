@@ -14,6 +14,7 @@ const cli = meow(`
         --exclude=PATTERN    exclude pattern
         --purge=PATH         purge directory
         --scope=SCOPE        scope name
+        --fresh              ignore server state, perform fresh upload
         --test               perform a trial run with no changes made
     -v, --version            show version number
     -h, --help               show this help
@@ -47,6 +48,9 @@ const cli = meow(`
     scope: {
       type: 'string',
     },
+    fresh: {
+      type: 'boolean',
+    },
     test: {
       type: 'boolean',
     },
@@ -59,6 +63,7 @@ const cli = meow(`
 
 const opts = {
   test: cli.flags.test,
+  fresh: cli.flags.fresh,
   secure: cli.flags.secure,
   allowUnauthorized: cli.flags.allowUnauthorized,
   scope: cli.flags.scope,

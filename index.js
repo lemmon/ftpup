@@ -18,6 +18,7 @@ module.exports = async (opts) => {
       console.log('> TEST MODE')
     }
     await client.access({
+      port: opts.port,
       host: opts.host,
       user: opts.username,
       password: opts.password,

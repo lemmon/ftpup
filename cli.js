@@ -39,6 +39,10 @@ const cli = meow(`
     allowUnauthorized: {
       type: 'boolean',
     },
+    port: {
+      type: 'number',
+      isRequired: true,
+    },
     exclude: {
       type: 'string',
     },
@@ -62,6 +66,7 @@ const cli = meow(`
 })
 
 const opts = {
+  port: cli.flags.port,
   test: cli.flags.test,
   fresh: cli.flags.fresh,
   secure: cli.flags.secure,

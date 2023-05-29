@@ -41,13 +41,14 @@ const cli = meow(`
     },
     port: {
       type: 'number',
-      isRequired: true,
     },
     exclude: {
       type: 'string',
+      isMultiple: true,
     },
     purge: {
       type: 'string',
+      isMultiple: true,
     },
     scope: {
       type: 'string',
@@ -72,7 +73,7 @@ const opts = {
   secure: cli.flags.secure,
   allowUnauthorized: cli.flags.allowUnauthorized,
   scope: cli.flags.scope,
-  purge: [].concat(cli.flags.purge || []),
+  purge: [ ...cli.flags.purge ],
 }
 
 if (cli.input.length == 2) {
@@ -88,7 +89,7 @@ if (cli.input.length == 2) {
 
 if (cli.flags.username) opts.username = cli.flags.username
 if (cli.flags.password) opts.password = cli.flags.password
-if (cli.flags.exclude) opts.exclude = Array.isArray(cli.flags.exclude) ? cli.flags.exclude : [cli.flags.exclude]
+if (cli.flags.exclude) opts.exclude = [ ...cli.flags.exclude ]
 
 ftpup(opts).catch(err => {
   console.log('!', err.message)
